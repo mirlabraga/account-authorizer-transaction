@@ -1,18 +1,18 @@
-import { AccountService } from "./src/service/account.service";
-import { OperationData } from "./src/service/operation.service";
-import processFile from "./src/common/parserFile";
-import { Operation } from "./src/models/operation.model";
+import readline from 'readline';
+import { Account } from "./src/models/account.model";
+import { OperationService } from './src/service/operation.service';
 
 export default async function main() {
-  const file = process.argv[2];
 
-  const operationData = new OperationData();
-  const operation: Operation = await processFile(file, operationData) as Operation;
+  let currentAccount: Account | null = null;
+  const lines = readline.createInterface({
+    input: process.stdin,
+    crlfDelay: Infinity
+  });
 
-  const accountService = new AccountService();
-  accountService.createAccount(operation.account);
-  const result = await accountService.processTransaction(operation.transactions);
-  console.log(result);
+  const operation: OperationService = new OperationService();
+  operation.process(lines, currentAccount);
+
 }
 
 try {

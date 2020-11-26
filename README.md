@@ -17,7 +17,7 @@ $ npm install -g typescript
 $ npm install -g ts-node
 ```
 
-## Installation
+## Installation & Run
 
 Use the package manager [npm](https://www.npmjs.com/) to install request-multiple-urls.
 
@@ -25,7 +25,7 @@ Use the package manager [npm](https://www.npmjs.com/) to install request-multipl
 $ git clone git@github.com:mirlabraga/account-authorizer-transaction.git
 $ cd account-authorizer-transaction
 $ npm install
-$ ts-node main.ts operations
+$ ts-node main.ts < operations
 ```
 
 ## Tests

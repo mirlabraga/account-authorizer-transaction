@@ -1,28 +1,50 @@
+import { ConsoleReporter } from "../controller/reporter";
+import { Account, AccountLimitValidator, ActiveCardValidator, DoubleTransactionValidator, HighFrequencySmallIntervalValidator, Validations } from "../models/account.model";
+import { Transaction } from "../models/transaction.model";
 
-import { validate, ValidatorResult } from "jsonschema";
-import { ProcessData } from "../common/processData";
-import { schemaAccount } from "../models/schemas/account.schema";
-import { schemaTransaction } from "../models/schemas/transaction.schema";
+export class OperationService {
 
-export class OperationData extends ProcessData {
-  private account:any;
-  private transactions: any[] = [];
+  private validator: Validations | null = null;
+  private reporter: ConsoleReporter | null = null;
 
-  run(line: any, objectReturn: Object) {
 
-    // console.log(`OperationData class: running ${line}`);
+  constructor(private violations: string[] = [], private transactions: Transaction[] = []) {
 
-    const parsedLine = JSON.parse(line);
-    if (parsedLine.account) {
-      const validatorAccount: ValidatorResult = validate(parsedLine, schemaAccount);
-      this.account = parsedLine.account;
-    } else if (parsedLine.transaction) {
-      const validatorTransaction: ValidatorResult = validate(parsedLine, schemaTransaction);
-      this.transactions.push(parsedLine.transaction)
-    } else {
-      throw new Error(`Invalid json line: ${line}`);
+    this.validator = new Validations([
+      new AccountLimitValidator(violations),
+      new ActiveCardValidator(violations),
+      new DoubleTransactionValidator(violations, transactions),
+      new HighFrequencySmallIntervalValidator(violations, transactions)
+    ]);
+
+    this.reporter = new ConsoleReporter(this.violations)
+  }
+
+
+  async process(lines: any, currentAccount: any) {
+
+
+    for await (const line of lines) {
+      const parsedLine = JSON.parse(line);
+      if (parsedLine.account) {
+        if (!currentAccount) {
+          currentAccount = new Account(
+            parsedLine.account.activeCard,
+            parsedLine.account.availableLimit,
+            this.validator,
+            this.transactions
+          );
+        } else {
+          this.violations.push('account-already-initialized');
+        }
+      } else {
+        if (!!currentAccount) {
+          currentAccount.addTransaction(parsedLine.transaction);
+        } else {
+          throw new Error(`Transaction before account created`);
+        }
+      }
+      this.reporter?.report(currentAccount)
     }
-    objectReturn = { ...objectReturn, account: this.account ,transactions: this.transactions }
-    return objectReturn;
   }
 }
