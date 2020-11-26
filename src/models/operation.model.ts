@@ -3,5 +3,5 @@ import { Transaction } from "./transaction.model";
 
 export interface Operation extends Object{
   account: Account;
-  transaction: Transaction[];
+  transactions: Transaction[];
 }
