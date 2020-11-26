@@ -1,0 +1,30 @@
+{
+  "name": "account-authorizer-transaction",
+  "version": "1.0.0",
+  "description": "Account Authorizer Transaction is responsible for doing stream from file and persiste",
+  "main": "main.js",
+  "scripts": {
+    "test": "npm run test",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirlabraga/account-authorizer-transaction.git"
+  },
+  "keywords": [
+    "account",
+    "authorizer",
+    "transaction",
+    "stream"
+  ],
+  "author": "Mirla Braga Chucre <mirla.braga@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirlabraga/account-authorizer-transaction/issues"
+  },
+  "homepage": "https://github.com/mirlabraga/account-authorizer-transaction#readme",
+  "dependencies": {
+    "@types/node": "^14.14.9",
+    "typescript": "^4.1.2"
+  }
+}
