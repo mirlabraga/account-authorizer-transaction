@@ -14,6 +14,7 @@ The account authorizer is an application is responsible for creating a new accou
 - npm >= v6 [![npm](https://img.shields.io/badge/npm-v6.3.0-blue)](https://www.npmjs.com/get-npm)
 - ts-node [[ts-node](https://github.com/TypeStrong/ts-node)]
 - TypeScript [[TypeScript](https://github.com/TypeStrong/ts-node)]
+- npx [[npx](https://www.npmjs.com/package/npx)]
 
 ## Pre-Installation
 
@@ -21,6 +22,7 @@ The account authorizer is an application is responsible for creating a new accou
 ```bash
 $ npm install -g typescript
 $ npm install -g ts-node
+$ npm install -g npx
 ```
 
 ## Installation & Run
