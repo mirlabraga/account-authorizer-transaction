@@ -2,6 +2,12 @@
 
 The account authorizer is an application is responsible for creating a new account and manager the transaction
 
+## Choices
+
+- Generic architecture, with ITransactionValiation and different implementations of Validations
+- I choiced Node.js with TypeScript because this tecnologies I have been working at least projects.
+- Creating the conception of Reposiotory with inversion of control (IoC) design pattern
+
 ## Development Requirements
 
 - node >= v12 [![node](https://img.shields.io/badge/node-v12-blue.svg?cacheSeconds=2592000)](https://nodejs.org/en/download/)
@@ -22,7 +28,7 @@ $ npm install -g ts-node
 Use the package manager [npm](https://www.npmjs.com/) to install request-multiple-urls.
 
 ```bash
-$ git clone git@github.com:mirlabraga/account-authorizer-transaction.git
+$ unzip account-authorizer-transaction
 $ cd account-authorizer-transaction
 $ npm install
 $ ts-node main.ts < operations
@@ -34,8 +40,7 @@ $ ts-node main.ts < operations
 
 ```bash
 $ npm install
-$ npm run test
-ts-node main.ts operations
+$ npx ts-mocha  test/**/*.spec.ts
 ```
 
 ## Contributing

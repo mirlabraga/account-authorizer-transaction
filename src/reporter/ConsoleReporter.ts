@@ -1,6 +1,6 @@
-import { Account } from "../models/account.model";
+import { Account } from "../model/Account";
 
-interface IAccountReport {
+export interface IAccountReport {
   report: (account: Account) => void;
 }
 export class ConsoleReporter implements IAccountReport {

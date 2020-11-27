@@ -1,5 +1,5 @@
 export interface Transaction {
   merchant: string;
   amount: number;
-  time: Date
+  time: string
 }
